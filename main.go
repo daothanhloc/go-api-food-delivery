@@ -31,7 +31,7 @@ func main() {
 		restaurants := v1.Group("/restaurants")
 		{
 			restaurants.POST("", restaurantgin.CreateRestaurantHandler(db))
-			//restaurants.GET("/:restaurant-id", restaurantgin.GetRestaurantHandler(db))
+			restaurants.GET("/:id", restaurantgin.GetRestaurantByIdHandler(db))
 			//restaurants.GET("", restaurantgin.ListRestaurant(db))
 			//restaurants.PUT("/:restaurant-id", restaurantgin.UpdateRestaurantHandler(db))
 			restaurants.DELETE("/:id", restaurantgin.DeleteRestaurantByIdHandler(db))
