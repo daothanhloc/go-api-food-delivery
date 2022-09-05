@@ -33,7 +33,7 @@ func main() {
 			restaurants.POST("", restaurantgin.CreateRestaurantHandler(db))
 			restaurants.GET("/:id", restaurantgin.GetRestaurantByIdHandler(db))
 			restaurants.GET("", restaurantgin.ListRestaurant(db))
-			//restaurants.PUT("/:restaurant-id", restaurantgin.UpdateRestaurantHandler(db))
+			restaurants.PUT("/:id", restaurantgin.UpdateRestaurantHandler(db))
 			restaurants.DELETE("/:id", restaurantgin.DeleteRestaurantByIdHandler(db))
 		}
 	}

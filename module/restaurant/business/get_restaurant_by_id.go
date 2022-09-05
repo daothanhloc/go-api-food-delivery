@@ -5,20 +5,24 @@ import (
 	restaurantmodel "food-delivery/module/restaurant/model"
 )
 
-type GetRestaurantByIdStore interface {
-	GetRestaurantById(ctx context.Context, id int) (*restaurantmodel.Restaurant, error)
+type GetRestaurantStore interface {
+	GetRestaurant(
+		ctx context.Context,
+		cond map[string]interface{},
+		moreKeys ...string,
+	) (*restaurantmodel.Restaurant, error)
 }
 
 type getRestaurantByIdBusiness struct {
-	store GetRestaurantByIdStore
+	store GetRestaurantStore
 }
 
-func NewGetRestaurantByIdBusiness(store GetRestaurantByIdStore) *getRestaurantByIdBusiness {
+func NewGetRestaurantByIdBusiness(store GetRestaurantStore) *getRestaurantByIdBusiness {
 	return &getRestaurantByIdBusiness{store: store}
 }
 
 func (biz *getRestaurantByIdBusiness) GetRestaurantById(ctx context.Context, id int) (*restaurantmodel.Restaurant, error) {
-	restaurant, err := biz.store.GetRestaurantById(ctx, id)
+	restaurant, err := biz.store.GetRestaurant(ctx, map[string]interface{}{"id": id})
 	if err != nil {
 		return nil, err
 	}

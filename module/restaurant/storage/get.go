@@ -5,9 +5,10 @@ import (
 	restaurantmodel "food-delivery/module/restaurant/model"
 )
 
-func (s *sqlStore) GetRestaurantById(ctx context.Context, id int) (*restaurantmodel.Restaurant, error) {
+func (s *sqlStore) GetRestaurant(ctx context.Context, cond map[string]interface{},
+	moreKeys ...string) (*restaurantmodel.Restaurant, error) {
 	var restaurant restaurantmodel.Restaurant
-	if err := s.db.Table(restaurantmodel.Restaurant{}.TableName()).Where("id = ?", id).First(&restaurant).Error; err != nil {
+	if err := s.db.Table(restaurantmodel.Restaurant{}.TableName()).Where(cond).First(&restaurant).Error; err != nil {
 		return nil, err
 	}
 	return &restaurant, nil
