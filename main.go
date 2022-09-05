@@ -1,6 +1,7 @@
 package main
 
 import (
+	"food-delivery/middlware"
 	"food-delivery/module/transport/ginrestaurant"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
@@ -25,6 +26,7 @@ func main() {
 	log.Println(db)
 
 	router := gin.Default()
+	router.Use(middlware.Recover()) // middleware catch up error panic
 
 	v1 := router.Group("/v1")
 	{

@@ -13,15 +13,16 @@ func CreateRestaurantHandler(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var data restaurantmodel.RestaurantCreate
 		if err := c.ShouldBind(&data); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-
+			//c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			//return
+			panic(err)
 		}
 		storage := restaurantstorage.NewSQLStore(db)
 		biz := restaurantbusiness.NewCreateRestaurantBusiness(storage)
 		if err := biz.CreateRestaurant(c.Request.Context(), &data); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			//c.JSON(http.StatusBadRequest, err)
+			//return
+			panic(err)
 		}
 		c.JSON(http.StatusOK, gin.H{"data": data.Id})
 	}
